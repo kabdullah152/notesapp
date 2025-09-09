@@ -1,17 +1,18 @@
-import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
-const schema = a.schema({  
-Note: a
+import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
+
+const schema = a.schema({
+  Note: a
     .model({
-      name:a.string(),
-      description: a.string(),
-      image: a.string(),
+      content: a.string(),
     })
-    .authorization((allow) => [allow.owner()]),
+    .authorization((allow) => [allow.owner()]), // each user can only see their own notes
 });
+
 export type Schema = ClientSchema<typeof schema>;
+
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'userPool',
+    defaultAuthorizationMode: "userPool",
   },
 });
